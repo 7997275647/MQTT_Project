@@ -1,0 +1,42 @@
+# Build outputs
+Debug/
+Release/
+Build/
+build/
+
+# Object files
+*.o
+*.obj
+*.elf
+*.bin
+*.hex
+*.map
+*.list
+
+# Dependency files
+*.d
+
+# Static analysis
+*.su
+*.cyclo
+
+# IDE / STM32CubeIDE
+.settings/
+.project
+.cproject
+.mxproject
+*.launch
+
+# VS Code
+.vscode/
+
+# OS files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Backup & temp files
+*~
+*.bak
+*.tmp
+*.swp
