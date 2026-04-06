@@ -27,6 +27,7 @@
 /* USER CODE BEGIN Includes */
 #include "lwip/netif.h"
 #include "lwip/tcpip.h"
+#include "adc.h"
 
 /* USER CODE END Includes */
 
@@ -60,6 +61,13 @@ const osThreadAttr_t defaultTask_attributes = {
     .priority = (osPriority_t)osPriorityNormal,
 };
 
+
+
+/* Private function prototypes -----------------------------------------------*/
+/* USER CODE BEGIN FunctionPrototypes */
+extern void MX_LWIP_Init(void);
+extern void MX_LWIP_Process(void);
+
 /* Definitions for myNetworkTask */
 osThreadId_t myNetworkTaskHandle;
 const osThreadAttr_t myNetworkTask_attributes = {
@@ -67,17 +75,12 @@ const osThreadAttr_t myNetworkTask_attributes = {
     .stack_size = 256 * 4,
     .priority = (osPriority_t)osPriorityAboveNormal2,
 };
-
-/* Private function prototypes -----------------------------------------------*/
-/* USER CODE BEGIN FunctionPrototypes */
-
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
 void StartMyNetworkTask(void *argument);
 
-extern void MX_LWIP_Init(void);
-extern void MX_LWIP_Process(void);
+
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
@@ -111,11 +114,12 @@ void MX_FREERTOS_Init(void)
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
-  /* creation of myNetworkTask */
-  myNetworkTaskHandle = osThreadNew(StartMyNetworkTask, NULL, &myNetworkTask_attributes);
+
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  /* creation of myNetworkTask */
+  myNetworkTaskHandle = osThreadNew(StartMyNetworkTask, NULL, &myNetworkTask_attributes);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -145,6 +149,9 @@ void StartDefaultTask(void *argument)
   /* USER CODE END StartDefaultTask */
 }
 
+
+/* Private application code --------------------------------------------------*/
+/* USER CODE BEGIN Application */
 /* USER CODE BEGIN Header_StartMyNetworkTask */
 /**
  * @brief  Function implementing the myNetworkTask thread.
@@ -161,7 +168,7 @@ void StartMyNetworkTask(void *argument)
   {
     /* Debug: Blink LED to show task is running */
     HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-
+    readTemperature();
     /* 1. Check if the physical cable is plugged in and linked */
     if (netif_is_link_up(&gnetif))
     {
@@ -178,7 +185,5 @@ void StartMyNetworkTask(void *argument)
   }
 }
 
-/* Private application code --------------------------------------------------*/
-/* USER CODE BEGIN Application */
 
 /* USER CODE END Application */
