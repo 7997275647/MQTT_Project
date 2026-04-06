@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "adc.h"
 #include "lwip.h"
 #include "rng.h"
 #include "usart.h"
@@ -97,6 +98,7 @@ int main(void)
   MX_GPIO_Init();
   MX_RNG_Init();
   MX_USART3_UART_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
