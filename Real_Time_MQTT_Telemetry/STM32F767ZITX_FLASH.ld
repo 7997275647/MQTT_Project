@@ -183,6 +183,18 @@ SECTIONS
     libm.a ( * )
     libgcc.a ( * )
   }
+  
+  /* LwIP Ethernet DMA memory sections */
+  .lwip_sec (NOLOAD) :
+  {
+    . = ALIGN(4);
+    *(.RxDecripSection)
+    . = ALIGN(4);
+    *(.TxDecripSection)
+    . = ALIGN(4);
+    *(.RxArraySection)
+    . = ALIGN(4);
+  } >RAM
 
   .ARM.attributes 0 : { *(.ARM.attributes) }
 }
