@@ -3,7 +3,7 @@
 ## Overview
 NodeStream is a local, edge-based Internet of Things (IoT) telemetry pipeline. It demonstrates the implementation of a lightweight publish/subscribe (Pub/Sub) messaging architecture using an STM32F7 microcontroller. The system captures localized data and publishes it over an Ethernet network via the LwIP (Lightweight IP) stack to a locally hosted MQTT broker, allowing real-time monitoring from a mobile client.
 
-This project highlights low-level embedded network configuration, asynchronous C programming, and decentralized IoT system design.
+This project highlights low-level embedded network configuration, asynchronous C programming, and centralized IoT system design.
 
 ## System Architecture
 
